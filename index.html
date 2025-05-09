@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Try to get the highest score!</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+    <canvas id="gameCanvas"></canvas>
+    <div id="startScreen">
+        <div id="instructions">
+            <p>Tap or click to flap. Avoid pipes. </p>
+        </div>
+        <div id="startButtonContainer">
+            <button id="startButton">Start Game</button>
+        </div>
+    </div>
+    <div id="gameOverScreen">
+        <p id="gameOverMessage"></p>
+        <p id="finalScoreText"></p>
+        <button id="restartButton">Restart Game</button>
+    </div>
+    <div id="questionScreen">
+        <p id="questionText"></p>
+        <button id="yesButton">Yes</button>
+        <button id="noButton">No</button>
+        <p id="answerPrompt">Answer to Continue</p>
+    </div>
+    <div id="wrongAnswerScreen">
+        <p id="wrongAnswerText"></p>
+        <button id="nextQuestionButton">Next Question</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
