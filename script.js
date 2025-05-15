@@ -40,6 +40,7 @@ let gameState = "start";
 let score = 0;
 let countdown = 0;
 let attempts = 15;
+let finalGameOverTriggered = false;
 
 const questions = [
     { text: "Is rephrasing someone else's idea without citation acceptable?", answer: false, wrongMessage: "Nope. Proper citation is required for rephrasing someone else's idea." },
@@ -143,6 +144,7 @@ function resetGame() {
     document.getElementById("finalScoreText").textContent = "";
     questionScreen.style.display = "none";
     wrongAnswerScreen.style.display = "none";
+    finalGameOverTriggered = false; // Reset the flag here
     createPipe();
 }
 
@@ -239,11 +241,20 @@ function gameLoop() {
             gameState = "playing";
         }
     } else if (gameState === "finalGameOver") {
-        gameOverScreen.style.display = "flex";
-        document.getElementById("gameOverMessage").textContent = "Game Over";
-        document.getElementById("finalScoreText").textContent = `Final Score: ${score}`;
-        questionScreen.style.display = "none";
-        wrongAnswerScreen.style.display = "none";
+    gameOverScreen.style.display = "flex";
+    document.getElementById("gameOverMessage").textContent = "Game Over";
+    document.getElementById("finalScoreText").textContent = `Final Score: ${score}`;
+    questionScreen.style.display = "none";
+    wrongAnswerScreen.style.display = "none";
+    // Send the score to Google Analytics once
+    if (!finalGameOverTriggered && typeof gtag === 'function') {
+        gtag('event', 'game_over', {
+            'event_category': 'game',
+            'event_label': 'final_score',
+            'value': score
+        });
+        finalGameOverTriggered = true;
+    }
     } else if (gameState === "over") {
         gameOverScreen.style.display = "flex";
         document.getElementById("gameOverMessage").textContent = "Answer to continue!";
